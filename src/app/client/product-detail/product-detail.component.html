@@ -1,0 +1,275 @@
+<app-css-loading *ngIf="isLoading"></app-css-loading>
+<main class="" *ngIf="!isLoading">
+
+    <div id="product" class="productDetail-page">
+
+      <!--  menu header seo -->
+      <div class="breadcrumb-shop">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pd5">
+              <ol class="breadcrumb breadcrumb-arrows">
+                <li>
+                  <a routerLink="/home">
+                    <span>Trang chủ</span>
+                  </a>
+                </li>
+                <li>
+                  <a routerLink="/product">
+                    <span>Sản phẩm</span>
+                  </a>
+                </li>
+                <li class="active">
+                  <span>
+                    <span itemprop="name">{{oneitem.title}}</span>
+                  </span>
+                  <meta itemprop="position" content="3">
+                </li>
+
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- detail product chính -->
+      <div class="container">
+        <div class="row product-detail-wrapper">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="row product-detail-main pr_style_01">
+              <div class="col-md-7 col-sm-12 col-xs-12">
+                <div class="product-gallery">
+                  <div class="product-gallery__thumbs-container hidden-sm
+                    hidden-xs">
+                    <div class="product-gallery__thumbs thumb-fix">
+
+
+
+                    </div>
+                  </div>
+                  <div class="product-image-detail box__product-gallery
+                    scroll hidden-xs">
+                    <ul id="sliderproduct" class="site-box-content
+                      slide_product" *ngFor="let image of oneitem.image" >
+                      <li class="product-gallery-item gallery-item " id="imgg8a">
+                        <img class="product-image-feature" [src]="image"
+                          alt="Nike Air Max 90 Essential" grape="">
+                      </li>
+
+                    </ul>
+                    <div class="product-image__button">
+                      <div id="product-zoom-in" class="product-zoom
+                        icon-pr-fix" aria-label="Zoom in" title="Zoom in">
+                        <span class="zoom-in" aria-hidden="true">
+                          <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 36 36" style="enable-background:new 0 0 36 36; width:
+                            30px; height: 30px;" xml:space="preserve">
+                            <polyline points="6,14 9,11 14,16 16,14 11,9
+                              14,6 6,6">
+                            </polyline>
+                            <polyline points="22,6 25,9 20,14 22,16 27,11
+                              30,14 30,6">
+                            </polyline>
+                            <polyline points="30,22 27,25 22,20 20,22
+                              25,27 22,30 30,30">
+                            </polyline>
+                            <polyline points="14,30 11,27 16,22 14,20 9,25
+                              6,22 6,30">
+                            </polyline>
+                          </svg>
+                        </span>
+                      </div>
+                      <div class="gallery-index icon-pr-fix"><span class="current">1</span>
+                        / <span class="total">8</span></div>
+                    </div>
+                  </div>
+                </div>
+
+            </div>
+            <div class="col-md-5 col-sm-12 col-xs-12
+                product-content-desc" id="detail-product">
+              <div class="product-content-desc-1">
+                <div class="product-title">
+                  <h1>{{oneitem.title}}</h1>
+                  <span id="pro_sku">SKU: {{oneitem.id}}</span>
+                </div>
+                <div class="product-price" id="price-preview"><span class="pro-price">Giá : {{oneitem.price | currencyFormat}}</span></div>
+                <form id="add-item-form" action="/cart/add" method="post" class="variants clearfix">
+
+                  <div class="select-swatch clearfix">
+
+
+                    <div class="swatch">
+                        Bạn hãy chọn size :
+                    </div>
+
+                    <div id="variant-swatch-1" class="swatch clearfix" data-option="option2" data-option-index="1">
+
+                      <div class="select-swap">
+                        <div (click)="tooglesize(size)" *ngFor="let size of oneitem.size" [ngClass]="{'activebg' : size.active}" class="activebox activebg">
+                          <label class="sd">
+                            <span >{{size.size_title}}</span>
+                          </label>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="selector-actions">
+                    <!-- <div class="quantity-area clearfix">
+                      <input type="button" value="-" onclick="minusQuantity()" class="qty-btn">
+                      <input type="text" id="quantity" name="quantity" value="1" min="1" class="quantity-selector">
+                      <input type="button" value="+" onclick="plusQuantity()" class="qty-btn">
+                    </div> -->
+                    <div class="wrap-addcart clearfix">
+                      <div class="row-flex">
+                        <button type="button" (click)="addCart(oneitem)" class="button btn-addtocart addtocart-modal">Thêm
+                          vào giỏ hàng</button>
+                      </div>
+
+                      <a href="" target="_blank" class="button btn-check"
+                        style="color: #ffffff;text-decoration:none;"><span>Click
+                          nhận mã giảm giá ngay
+                          !</span></a>
+
+                    </div>
+                  </div>
+                  <!--<div class="product-action-bottom visible-xs">
+                      <div class="input-bottom">
+                        <input id="quan-input" type="number" value="1" min="1">
+                      </div>
+                      <button type="button" id="add-to-cartbottom"
+                        class="add-to-cartProduct add-cart-bottom button addtocart-modal" name="add">Thêm vào
+                        giỏ</button>
+                    </div>-->
+                </form>
+                <div class="product-description">
+                  <div class="title-bl">
+                    <h2>Mô tả</h2>
+                  </div>
+                  <div class="description-content">
+                    <div class="description-productdetail">
+                      <p><span>Hiện đại và thời trang khi diện item mới
+                          của Nike. Màu sắc lạ mắt, chất liệu
+                          thoáng mát, nhẹ nhàng, phù hợp với những chàng
+                          trai yêu phong cách
+                          sports.</span><br><br></p>
+                      <ul>
+                        <li>Chất liệu cao cấp EVA, PU, Cushlon, Phylon.</li>
+                        <li>Bền, chống bám bẩn, dễ dàng lau chùi. Mũi giày
+                          đầy đặn, form dáng chuẩn.</li>
+                        <li>Bảo vệ đầu ngón chân khi hoạt động. Có lớp lót
+                          đệm bên trong.</li>
+                        <li>Êm, di chuyển nhiều không bị đau chân. Cổ giày
+                          thiết kế đơn giản, vừa vặn.</li>
+                        <li>Di chuyển dễ dàng, thoải mái.</li>
+                        <li>Đế bằng chất liệu cao su<br></li>
+                        <li>Êm ái, độ bám tốt, chống trơn trượt.</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="list-productRelated clearfix">
+            <div class="heading-title text-center">
+              <!-- <h2>Sản phẩm liên quan đến {{oneitem.trademark.toUpperCase()}} {{randomitem}}</h2> -->
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-6 col-6" *ngFor="let itemrandom of arrayrandom">
+                  <div class="product-block">
+                    <div class="product-img fade-box">
+                      <a href="#" title="Adidas EQT Cushion ADV" class="img-resize">
+                        <img
+                          alt="Adidas EQT Cushion ADV" class="lazyloaded">
+                        <img  alt="Adidas EQT Cushion ADV" class="lazyloaded">
+                      </a>
+
+                    </div>
+                    <div class="product-detail clearfix">
+                      <div class="pro-text">
+                        <a style="color: black;
+                            font-size: 14px;text-decoration: none;" href="#" title="Adidas EQT Cushion ADV" inspiration
+                          pack>
+                          {{itemrandom.title}}
+                        </a>
+                      </div>
+                      <div class="pro-price">
+                        <p class="">{{itemrandom.price | currencyFormat}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    </div>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-4 col-xs-12">
+              <!-- show zoom detail product -->
+              <!-- zoom -->
+              <div class="box-send-contact">
+                <h2>Đánh giá tại đây </h2>
+                <div id="col-left contactFormWrapper menuList-links">
+                  <div accept-charset="UTF-8" action="/contact" class="contact-form" method="post">
+                    <div class="contact-form">
+                      <div class="row">
+
+                        <div class="col-sm-12 col-xs-12">
+                          <div class="input-group">
+                            <textarea [(ngModel)]="text" placeholder="Nội dung"></textarea>
+                          </div>
+                        </div>
+                        <div class="col-sm-12">
+                          <button (click)="send()" class="button dark">Gửi cho chúng tôi</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-1"></div>
+            <div class="col-7 col-xs-12">
+              <div class="box-send-contact">
+                <h2>Tất cả đánh giá về sản phẩm</h2>
+                <div id="col-left contactFormWrapper menuList-links">
+                  <form accept-charset="UTF-8" action="/contact" class="contact-form" method="post">
+                    <div *ngIf="comments.length > 0" class="contact-form">
+                      <div class="row">
+                        <div class="col-sm-12 col-xs-12" style="padding-bottom: 10px;" *ngFor="let cm of comments">
+                          <div style="border: 1px solid;"  >
+                              <div style="padding: 20px;">
+                                <h6 style="font-weight: bolder; margin: 0 !important;">Khách hàng: {{cm.author}}</h6>
+                                <p  style="margin: 10px 0px ; color: rgb(231, 146, 18); "><i class="fa-sharp fa-solid fa-star" style="margin-right: 2px;" ></i><i class="fa-sharp fa-solid fa-star" style="margin-right: 2px;" ></i><i class="fa-sharp fa-solid fa-star" style="margin-right: 2px;" ></i><i class="fa-sharp fa-solid fa-star" style="margin-right: 2px;" ></i><i class="fa-sharp fa-solid fa-star" style="margin-right: 2px;" ></i></p>
+                              <p style="margin: 10px 0px ;">{{cm.content}}</p>
+                              <div class="like">
+                                <a href="" style="margin-right: 15px;"><i class="fa-regular fa-thumbs-up"></i> Hữu ích </a>
+                                <a href=""><i class="fa-regular fa-thumbs-down"></i> Không thích </a>
+                                <span style="color: #656262cc;" > | {{cm.date}}</span>
+                              </div>
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div *ngIf="comments.length == 0" class="contact-form">
+                      <h6 style="font-weight: bolder; margin: 0 !important;">Chưa có đánh giá nào !!!</h6>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+
+  </main>

@@ -1,0 +1,166 @@
+<section class="signin ">
+  <div class="container">
+      <div class="signin-right " *ngIf="!isCheck"  id="a-sign" style="border-right: 1px solid #cccc;">
+          <div class="sign-title">
+              <h1 style="font-weight: bolder;">Thanh toán</h1>
+              <form action="" (ngSubmit)="submit(userForm)" #userForm="ngForm" >
+                <h2 style="font-size: 18px; font-weight: bolder;">1. Địa chỉ nhận hàng</h2>
+                <div class="username form-control1 " >
+                  <label for="">Địa chỉ email</label>
+                    <input type="email" #email="ngModel" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" [(ngModel)]="user.email" name="email" id="username" placeholder="Email">
+                    <div class="form-control1" style="font-weight: bold;" *ngIf="email?.invalid && (email.dirty || isValid)">
+                      <span class="text-danger" *ngIf="email.errors?.['required']">Vui lòng nhập email</span>
+                      <span class="text-danger" *ngIf="email.errors?.['pattern']">
+                          Vui lòng nhập email hợp lệ
+                      </span>
+                  </div>
+                </div>
+
+
+
+
+                <div class="password form-control1">
+                  <label for="">Họ tên</label>
+                    <input type="text" #name="ngModel" required [(ngModel)]="user.name" minlength="5"  name="name" id="username" placeholder="Họ và Tên">
+                    <div style="font-weight: bold;" class="form-error mt-2" *ngIf="name?.invalid && (name.dirty || isValid)">
+                      <span class="text-danger" *ngIf="name.errors?.['required']">Vui lòng nhập tên</span>
+                      <span class="text-danger" *ngIf="name.errors?.['minlength']">
+                          Tên phải có tối thiểu 5 ký tự
+                      </span>
+                  </div>
+                </div>
+
+
+                <div class="username form-control1 " >
+                  <label for="">Số điện thoại</label>
+                  <input type="tel" id="username" #phone="ngModel" required name="phone" minlength="10" pattern="^[0-9]*$" [(ngModel)]="user.phone" placeholder="Số điện thoại">
+                  <div class="form-control1" style="font-weight: bold;" *ngIf="phone?.invalid && (phone.dirty || phone.touched)">
+                    <span class="text-danger" *ngIf="phone.errors?.['required']">Vui lòng nhập số điện thoại</span>
+                    <span class="text-danger" *ngIf="phone.errors?.['minlength']">Số điện thoại tối thiểu 10 số</span>
+                    <span class="text-danger" *ngIf="phone.errors?.['pattern']">Số điện thoại chỉ bao gồm các chữ số từ 0-9</span>
+                  </div>
+
+              </div>
+              <div class="selectdiv" style="margin: 0 !important;">
+                <label for="">Tỉnh/Thành phố</label>
+                    <select required name="province_check" [(ngModel)]="province" [(ngModel)]="user.province" id="" #province_check="ngModel" (change)="getListDistrict()" >
+                      <option value="" disabled selected>Chọn tỉnh/thành phố</option> <!-- Giá trị khởi tạo giá trị "" -->
+                      <option *ngFor="let province of listProvince" [value]="province.province_id" >{{province.province_name}}</option>
+                  </select>
+                  <div style="font-weight: bold;" class="form-error mt-2" *ngIf="province_check?.invalid && (province_check.dirty || isValid)">
+                    <span class="text-danger" *ngIf="province_check.errors?.['required']">Vui lòng chọn tỉnh/thành phố</span>
+                </div>
+              </div>
+              <div class="selectdiv" *ngIf="listDistricts.length > 0">
+                <label for="">Quận/Huyện</label>
+                <select required id="" name="district_check" #district_check="ngModel" [(ngModel)]="user.district" [(ngModel)]="district" (change)="getListWard()" >
+                  <option value="" disabled selected >Chọn quận/huyện</option>
+                  <option *ngFor="let district of listDistricts" [value]="district.district_id" >{{district.district_name}}</option>
+              </select>
+              <div style="font-weight: bold;" class="form-error mt-2" *ngIf="district_check?.invalid && (district_check.dirty || isValid)">
+                <span class="text-danger" *ngIf="district_check.errors?.['required']">Vui lòng chọn quận/huyện</span>
+            </div>
+             </div>
+              <div class="selectdiv" *ngIf="listWard.length > 0">
+                <label for="">Phường/Xã</label>
+                <select required  id="" name="ward_check" #ward_check="ngModel" [(ngModel)]="user.ward" [(ngModel)]="ward" (change)="getListWard()" >
+                  <option value="" disabled selected >Chọn phường/xã</option>
+                  <option *ngFor="let ward of listWard" [value]="ward.ward_name" >{{ward.ward_name}}</option>
+              </select>
+              <div style="font-weight: bold;" class="form-error mt-2" *ngIf="ward_check?.invalid && (ward_check.dirty || isValid)">
+                <span class="text-danger" *ngIf="ward_check.errors?.['required']">Vui lòng chọn quận/huyện</span>
+            </div>
+            </div>
+
+            <div class="password form-control1">
+              <label for="">Địa chỉ đường</label>
+                <input required type="text" id="password" #address="ngModel" [(ngModel)]="user.address" name="address" placeholder="Địa chỉ đường">
+                <div style="font-weight: bold;" class="form-error mt-2" *ngIf="address?.invalid && (address.dirty || isValid)">
+                  <span class="text-danger" *ngIf="address.errors?.['required']">Vui nhập địa chỉ</span>
+              </div>
+            </div>
+              <div class="username form-control1 ">
+                <label for="">Ghi chú</label>
+                <input type="text"   id="username" [(ngModel)]="user.note" name="note" placeholder="Ghi chú">
+            </div>
+            <button type="submit" class="btn btn-primary">Gửi dữ liệu</button>
+
+                <div class="recaptcha form-control1">This site is protected by reCAPTCHA and the Google <a href="">Privacy Policy</a> and <a href="">Terms of Service</a> apply.</div>
+
+                <hr>
+
+
+            </form>
+          </div>
+      </div>
+
+      <!-- chi tiết thông tin khách hàng -->
+      <div class="signin-right " *ngIf="isCheck"  id="a-sign" style="border-right: 1px solid #cccc;">
+        <div class="sign-title">
+            <h1 style="font-weight: bolder;">Thông tin khách hàng</h1>
+            <div  style="font-size: 20px;">
+              <label>Họ và tên: <span style="font-weight: 500;">{{user.name}}</span> </label><br>
+              <label>Số điện thoại: <span style="font-weight: 500;">{{user.email}} </span> </label><br>
+              <label>Email: <span style="font-weight: 500;"> {{user.email}} </span> </label><br>
+              <label>Địa chỉ ở: <span style="font-weight: 500;">{{user.province}} | {{user.district}} | {{user.ward}}</span></label> <br>
+              <label>Số nhà: <span style="font-weight: 500;">{{user.address}}</span></label> <br>
+              <label style="padding-bottom: 20px;">Chú thích: <span style="font-weight: 500;">{{user.note}}</span></label>
+          </div>
+          <button type="submit" class="btn btn-primary" (click)="confirm()">Xác nhận</button>
+        </div>
+    </div>
+
+      <div class="signin-right " *ngIf="checkout.length != 0" id="a-sign" style="align-items: normal !important; display: block ; ">
+        <h1 style="font-weight: bolder; padding-bottom: 15px;">Đơn hàng của bạn</h1>
+          <form action="">
+            <!-- chi tiết sản phẩm trong giỏ hàng -->
+            <table>
+              <thead>
+                    <tr >
+                      <th>Hình</th>
+                      <th>Tên</th>
+                      <th style="padding-right: 10px; ">Số lượng</th>
+                      <th>Thành tiền</th>
+                    </tr>
+              </thead>
+              <tbody >
+                  <tr *ngFor="let i of checkout" style="border-bottom: 1px solid;" >
+                    <td style="padding-right: 10px; padding-bottom: 15px; padding-top: 15px;"><img style="width: 80px;" [src]="i.image" alt="" ></td>
+                    <td style="padding-right: 10px;">{{i.title}} <p>Size : {{i.size}}</p> </td>
+                    <td style="padding-right: 20px; text-align: center; "> {{i.quantity}} </td>
+                    <td style="padding-right: 10px; ">{{Number(i.price , i.quantity) | currencyFormat}}</td>
+                  </tr>
+                  <tr >
+                      <th style="padding-top: 20px;" >TỔNG TIỀN:</th>
+                      <th></th>
+                      <th></th>
+                      <th style="padding-top: 20px;" >{{totalcart | currencyFormat }}</th>
+                    </tr>
+
+              </tbody>
+          </table>
+
+          </form>
+      </div>
+      <div class="signin-right " id="b-sign">
+          <form action="">
+              <div class="username form-control1 ">
+                 <h2>Phục hồi mật khẩu</h2>
+              </div>
+              <div class="password form-control1">
+                  <input type="text" id="password" placeholder="Mật khẩu">
+              </div>
+
+              <div class="recaptcha form-control1">This site is protected by reCAPTCHA and the Google <a href="">Privacy Policy</a> and <a href="">Terms of Service</a> apply.</div>
+              <div class="submit">
+                <input class="btn" type="submit" value="Gửi">
+                <div class="forgetpassword">
+                      <a href="" id="huy">Hủy</a>
+                </div>
+
+              </div>
+
+          </form>
+      </div>
+  </div>
+</section>
